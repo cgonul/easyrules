@@ -27,6 +27,7 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -126,7 +127,7 @@ class RuleProxy implements InvocationHandler {
 
         Method[] methods = getMethods();
         for (Method method : methods) {
-            if (method.isAnnotationPresent(Priority.class)) {
+            if (AnnotationUtils.findAnnotation(method,Priority.class) != null) {
                 priority = (Integer) method.invoke(target);
                 break;
             }
@@ -137,7 +138,7 @@ class RuleProxy implements InvocationHandler {
     private Method getConditionMethod() {
         Method[] methods = getMethods();
         for (Method method : methods) {
-            if (method.isAnnotationPresent(Condition.class)) {
+            if (AnnotationUtils.findAnnotation(method,Condition.class) != null) {
                 return method;
             }
         }
@@ -148,8 +149,8 @@ class RuleProxy implements InvocationHandler {
         Method[] methods = getMethods();
         Set<ActionMethodOrderBean> actionMethodBeans = new TreeSet<>();
         for (Method method : methods) {
-            if (method.isAnnotationPresent(Action.class)) {
-                Action actionAnnotation = method.getAnnotation(Action.class);
+            if (AnnotationUtils.findAnnotation(method,Action.class) != null) {
+                Action actionAnnotation = AnnotationUtils.findAnnotation(method,Action.class);
                 int order = actionAnnotation.order();
                 actionMethodBeans.add(new ActionMethodOrderBean(method, order));
             }

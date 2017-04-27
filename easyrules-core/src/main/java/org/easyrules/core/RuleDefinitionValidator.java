@@ -27,6 +27,7 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Priority;
 import org.easyrules.annotation.Rule;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -130,7 +131,7 @@ class RuleDefinitionValidator {
         Method[] methods = getMethods(rule);
         List<Method> annotatedMethods = new ArrayList<>();
         for (Method method : methods) {
-            if (method.isAnnotationPresent(annotation)) {
+            if (AnnotationUtils.findAnnotation(method,annotation) != null) {
                 annotatedMethods.add(method);
             }
         }

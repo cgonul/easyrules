@@ -33,6 +33,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import org.springframework.core.annotation.AnnotationUtils;
+
 import static java.util.Arrays.asList;
 
 /**
@@ -89,9 +91,9 @@ final class Utils {
 
     static <A extends Annotation> A findAnnotation(final Class<A> targetAnnotation, final Class<?> annotatedType) {
 
-        A foundAnnotation = annotatedType.getAnnotation(targetAnnotation);
+        A foundAnnotation = AnnotationUtils.getAnnotation(annotatedType,targetAnnotation);
         if (foundAnnotation == null) {
-            for (Annotation annotation : annotatedType.getAnnotations()) {
+            for (Annotation annotation : AnnotationUtils.getAnnotations(annotatedType)) {
                 Class<? extends Annotation> annotationType = annotation.annotationType();
                 if (annotationType.isAnnotationPresent(targetAnnotation)) {
                     foundAnnotation = annotationType.getAnnotation(targetAnnotation);
