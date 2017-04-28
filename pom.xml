@@ -10,7 +10,7 @@
 
     <groupId>org.easyrules</groupId>
     <artifactId>easyrules</artifactId>
-    <version>2.4.5-SNAPSHOT</version>
+    <version>2.4.5-RELEASE</version>
 
     <modules>
         <module>easyrules-archetype</module>
@@ -249,10 +249,10 @@
     </build>
 
     <distributionManagement>
-        <snapshotRepository>
+        <repository>
             <id>internal-repository</id>
-            <url>http://nexus.tge.netas.com.tr/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
+            <url>http://nexus.tge.netas.com.tr/nexus/content/repositories/releases/</url>
+        </repository>
     </distributionManagement>
 
 
